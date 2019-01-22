@@ -1,0 +1,4 @@
+mat-list-item.done {
+    color: #999;
+    text-decoration: line-through;
+}

@@ -3,16 +3,38 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { InMemoryWebApiModule } from "angular-in-memory-web-api";
+import { InMemoryBackend } from "./todo/todo.backend";
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
+import { TodoService } from './todo/todo.service';
+import { StoreModule } from '@ngrx/store';
+import { reducer } from './todo/todo.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { TodoEffects } from './todo/todo.effects';
+import { TodosListComponent } from './todos-list/todos-list.component';
+import {MatListModule} from '@angular/material/list';
+import {MatCardModule} from '@angular/material/card';
+import { SortTodos } from './pipes/sort-todos.pipe';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TodosListComponent,
+    SortTodos
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    InMemoryWebApiModule.forRoot(InMemoryBackend),
+    BrowserAnimationsModule,
+    HttpClientModule,
+    StoreModule.forRoot({ todos: reducer }),
+    EffectsModule.forRoot([TodoEffects]),
+    MatListModule,
+    MatCardModule
   ],
-  providers: [],
+  providers: [TodoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
