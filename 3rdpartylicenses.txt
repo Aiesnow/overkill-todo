@@ -335,6 +335,8 @@ MIT
 
 @angular/material/list
 
+@angular/material/checkbox
+
 @angular/material/card
 
 @ngrx/store
