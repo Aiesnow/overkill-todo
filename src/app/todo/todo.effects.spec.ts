@@ -18,7 +18,7 @@ describe('PostsEffects', () => {
                 TodoEffects,
                 {
                     provide: TodoService,
-                    useValue: jasmine.createSpyObj('TodoService', ['getAllTodos'])
+                    useValue: jasmine.createSpyObj('TodoService', ['getAllTodos', 'setTodoDone'])
                 },
                 provideMockActions(() => actions)
             ]
@@ -27,7 +27,7 @@ describe('PostsEffects', () => {
         service = TestBed.get(TodoService);
     });
 
-    it('should complete with a SuccessLoad', () => {
+    it('LoadTodos should complete with a SuccessLoad', () => {
         let expectedTodos = [
             {
                 id:1
@@ -47,8 +47,8 @@ describe('PostsEffects', () => {
         expect(effects.loadTodos$).toBeObservable(expected);
     });
 
-    it('should complete with a FailLoad', () => {
-        let error = new Error("Failed to fetch todos")
+    it('LoadTodos should complete with a FailLoad', () => {
+        let error = new Error("Failed to fetch todos");
         const action = new TodoActions.LoadTodos();
         const completion = new TodoActions.FailLoad(error);
         let functionToMock: any = service.getAllTodos
@@ -58,5 +58,40 @@ describe('PostsEffects', () => {
         const expected = cold('--b', { b: completion });
     
         expect(effects.loadTodos$).toBeObservable(expected);
+    });
+
+    it('SetTodoDone should complete with a LoadTodos', () => {
+        let todo = {
+            id: 1,
+            title: "todo",
+            done: false,
+        };
+        const action = new TodoActions.SetTodoDone(todo);
+        const completion = new TodoActions.LoadTodos();
+        let functionToMock: any = service.setTodoDone
+        functionToMock.and.returnValue(of(null));
+
+        actions = hot('--a-', { a: action });
+        const expected = cold('--b', { b: completion });
+    
+        expect(effects.setTodoDone$).toBeObservable(expected);
+    });
+
+    it('SetTodoDone should complete with a FailLoad', () => {
+        let error = new Error("Failed to fetch todos");
+        let todo = {
+            id: 1,
+            title: "todo",
+            done: false,
+        };
+        const action = new TodoActions.SetTodoDone(todo);
+        const completion = new TodoActions.FailLoad(error);
+        let functionToMock: any = service.setTodoDone
+        functionToMock.and.returnValue(throwError(error));
+
+        actions = hot('--a-', { a: action });
+        const expected = cold('--b', { b: completion });
+    
+        expect(effects.setTodoDone$).toBeObservable(expected);
     });
 });

@@ -12,4 +12,10 @@ export class TodoService {
     getAllTodos(): Observable<Todo[]> {
         return this.httpClient.get<Todo[]>(this.url);
     }
+
+    setTodoDone(todo: Todo): Observable<Todo> {
+        return this.httpClient.put<Todo>(this.url + "/" + todo.id, {
+            ...todo
+        });
+    }
 }

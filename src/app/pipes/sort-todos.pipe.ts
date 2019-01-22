@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { Todo } from '../todo/todo';
 
-@Pipe({name: 'sortTodos'})
+@Pipe({name: 'sortTodos', pure: false})
 export class SortTodos implements PipeTransform {
   transform(value: Todo[]): Todo[] {
     // Returns a new sorted array of todos

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { TodoService } from '../todo/todo.service';
 import { Store, select } from '@ngrx/store';
-import { LoadTodos } from '../todo/todo.actions';
+import { LoadTodos, SetTodoDone } from '../todo/todo.actions';
 import { TodoState } from '../todo/todo.reducer';
 import { Todo } from '../todo/todo';
 
@@ -20,6 +20,11 @@ export class TodosListComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(new LoadTodos());
+  }
+
+  toggleTodo(todo, done) {
+    todo.done = done;
+    this.store.dispatch(new SetTodoDone(todo));
   }
 
 }

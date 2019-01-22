@@ -16,6 +16,7 @@ import { TodosListComponent } from './todos-list/todos-list.component';
 import {MatListModule} from '@angular/material/list';
 import {MatCardModule} from '@angular/material/card';
 import { SortTodos } from './pipes/sort-todos.pipe';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { SortTodos } from './pipes/sort-todos.pipe';
     StoreModule.forRoot({ todos: reducer }),
     EffectsModule.forRoot([TodoEffects]),
     MatListModule,
-    MatCardModule
+    MatCardModule,
+    MatCheckboxModule
   ],
   providers: [TodoService],
   bootstrap: [AppComponent]

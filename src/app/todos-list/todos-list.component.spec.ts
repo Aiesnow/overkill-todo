@@ -7,7 +7,8 @@ import { TodoService } from '../todo/todo.service';
 import { Store, StoreModule } from '@ngrx/store';
 import { reducer, TodoState } from '../todo/todo.reducer';
 import { SortTodos } from '../pipes/sort-todos.pipe';
-import { LoadTodos } from '../todo/todo.actions';
+import { LoadTodos, SetTodoDone } from '../todo/todo.actions';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 describe('TodosListComponent', () => {
   let component: TodosListComponent;
@@ -23,6 +24,7 @@ describe('TodosListComponent', () => {
       imports: [
         MatListModule, 
         MatCardModule,
+        MatCheckboxModule,
         StoreModule.forRoot({ todos: reducer })
       ],
       providers:    [ {provide: TodoService, useValue: todoServiceStub }, Store ]
@@ -46,5 +48,17 @@ describe('TodosListComponent', () => {
     const action = new LoadTodos();
     component.ngOnInit();
     expect(store.dispatch).toHaveBeenCalledWith(action);
-  })
+  });
+
+  it('toggleTodo should dispatch SetTodoDone', () => {
+    let todo = {
+      id:1,
+      title: "todo",
+      done: false
+    }
+    const action = new SetTodoDone(todo);
+    component.toggleTodo(todo, true);
+    expect(store.dispatch).toHaveBeenCalledWith(action);
+    expect(todo.done).toBe(true);
+  });
 });

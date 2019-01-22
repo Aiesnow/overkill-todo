@@ -1,6 +1,6 @@
 import { Todo } from './todo';
 import * as TodoActions from './todo.actions';
-import { FailLoad, SuccessLoad } from './todo.actions';
+import { FailLoad, SuccessLoad, SetTodoDone } from './todo.actions';
 
 export interface TodoState {
     data: Todo[];
@@ -17,9 +17,10 @@ export const initialState: TodoState = {
 
 export function reducer(
     state = initialState,
-    action: TodoActions.LoadTodos | TodoActions.FailLoad | TodoActions.SuccessLoad
+    action: TodoActions.LoadTodos | TodoActions.FailLoad | TodoActions.SuccessLoad | TodoActions.SetTodoDone
   ): TodoState {
     switch (action.type) {
+      case TodoActions.ActionTypes.SetTodoDone:
       case TodoActions.ActionTypes.LoadTodos: {
         return {
           ...state,

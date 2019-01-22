@@ -2,12 +2,18 @@ import { Action } from '@ngrx/store';
  
 export enum ActionTypes {
   LoadTodos = '[Todo] Load',
+  SetTodoDone = '[Todo] SetDone',
   FailLoad = '[Todo] FailLoad',
   SuccessLoad = '[Todo] SuccessLoad',
 }
  
 export class LoadTodos implements Action {
   readonly type = ActionTypes.LoadTodos;
+}
+ 
+export class SetTodoDone implements Action {
+  readonly type = ActionTypes.SetTodoDone;
+  constructor(public payload:any) { }
 }
  
 export class FailLoad implements Action {
