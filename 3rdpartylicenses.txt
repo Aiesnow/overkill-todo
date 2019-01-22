@@ -342,6 +342,10 @@ MIT
 @ngrx/store
 MIT
 
+@angular/material/progress-spinner
+
+@angular/material/button
+
 angular-in-memory-web-api
 MIT
 The MIT License
