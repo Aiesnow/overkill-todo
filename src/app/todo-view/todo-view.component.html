@@ -1,0 +1,10 @@
+<mat-card *ngIf="!todo" id="loading-card">
+    <mat-spinner></mat-spinner>
+</mat-card>
+<mat-card *ngIf="todo">
+  <mat-card-title>{{todo.title}}</mat-card-title>
+  <mat-card-content>{{todo.description}}</mat-card-content>
+  <mat-card-actions>
+      <a mat-button routerLink="" >BACK</a>
+    </mat-card-actions>
+</mat-card>

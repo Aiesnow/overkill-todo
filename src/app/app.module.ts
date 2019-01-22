@@ -17,12 +17,16 @@ import {MatListModule} from '@angular/material/list';
 import {MatCardModule} from '@angular/material/card';
 import { SortTodos } from './pipes/sort-todos.pipe';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { TodoViewComponent } from './todo-view/todo-view.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   declarations: [
     AppComponent,
     TodosListComponent,
-    SortTodos
+    SortTodos,
+    TodoViewComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +38,9 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     EffectsModule.forRoot([TodoEffects]),
     MatListModule,
     MatCardModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatProgressSpinnerModule,
+    MatButtonModule
   ],
   providers: [TodoService],
   bootstrap: [AppComponent]

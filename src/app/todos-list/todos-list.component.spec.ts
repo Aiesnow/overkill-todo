@@ -9,6 +9,8 @@ import { reducer, TodoState } from '../todo/todo.reducer';
 import { SortTodos } from '../pipes/sort-todos.pipe';
 import { LoadTodos, SetTodoDone } from '../todo/todo.actions';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { RouterModule } from '@angular/router';
+import { Todo } from '../todo/todo';
 
 describe('TodosListComponent', () => {
   let component: TodosListComponent;
@@ -25,7 +27,8 @@ describe('TodosListComponent', () => {
         MatListModule, 
         MatCardModule,
         MatCheckboxModule,
-        StoreModule.forRoot({ todos: reducer })
+        StoreModule.forRoot({ todos: reducer }),
+        RouterModule
       ],
       providers:    [ {provide: TodoService, useValue: todoServiceStub }, Store ]
     })
@@ -51,10 +54,11 @@ describe('TodosListComponent', () => {
   });
 
   it('toggleTodo should dispatch SetTodoDone', () => {
-    let todo = {
+    let todo: Todo = {
       id:1,
       title: "todo",
-      done: false
+      done: false,
+      description: "description"
     }
     const action = new SetTodoDone(todo);
     component.toggleTodo(todo, true);

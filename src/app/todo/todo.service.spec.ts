@@ -1,6 +1,7 @@
 import { TodoService } from "./todo.service";
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
+import { Todo } from './todo';
 
 describe('TodoService', () => {
     let service: TodoService;
@@ -19,14 +20,21 @@ describe('TodoService', () => {
     });
    
     it('getAllTodos should resolve with content', (done: DoneFn) => {
-
+      let todos: Todo[] = [
+        {
+          id:1, 
+          title: "Test task", 
+          done:false, 
+          description: "description"
+        }
+      ];
       service.getAllTodos().subscribe(res => {
-          expect(res).toEqual([{id:1, title: "Test task", done:false}])
+          expect(res).toBe(todos)
           done();
       });
 
       let request = httpMock.expectOne('/api/todos');
-      request.flush([{id:1, title: "Test task", done:false}]);
+      request.flush(todos);
 
     });
    
@@ -48,10 +56,11 @@ describe('TodoService', () => {
     });
 
     it('setTodoDone should resolve', (done: DoneFn) => {
-      let todo = {
+      let todo: Todo = {
         id:2,
         title: "todo",
-        done: false
+        done: false,
+        description: "description"
       };
       service.setTodoDone(todo).subscribe(res => {
           done();
@@ -63,10 +72,11 @@ describe('TodoService', () => {
     });
    
     it('setTodoDone should reject with an error', (done: DoneFn) => {
-      let todo = {
+      let todo: Todo = {
         id:1,
         title: "todo",
-        done: false
+        done: false,
+        description: "description"
       };
       service.setTodoDone(todo).subscribe(res => {
       }, err => {

@@ -1,4 +1,9 @@
-mat-list-item.done {
+mat-list-item.done a {
     color: #999;
     text-decoration: line-through;
+}
+
+mat-list-item a {
+    text-decoration: none;
+    color: black;
 }

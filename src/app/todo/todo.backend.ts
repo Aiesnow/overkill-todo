@@ -7,22 +7,26 @@ export class InMemoryBackend extends InMemoryDbService {
             {
                 id: 1,
                 title: "Clean Database",
-                done: true
+                done: true,
+                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eget laoreet urna. Duis vel risus commodo, suscipit neque vitae, ultrices metus. Praesent eget turpis imperdiet, volutpat turpis vitae, pretium nunc. Phasellus finibus, lacus sed fringilla convallis, nibh ex scelerisque mauris, non consectetur nisl sem eget lacus. Sed auctor leo sit."
             },
             {
                 id: 2,
                 title: "Develop new feature",
-                done: false
+                done: false,
+                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eget laoreet urna. Duis vel risus commodo, suscipit neque vitae, ultrices metus. Praesent eget turpis imperdiet, volutpat turpis vitae, pretium nunc. Phasellus finibus, lacus sed fringilla convallis, nibh ex scelerisque mauris, non consectetur nisl sem eget lacus. Sed auctor leo sit."
             },
             {
                 id: 3,
                 title: "Unit tests",
-                done: false
+                done: false,
+                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eget laoreet urna. Duis vel risus commodo, suscipit neque vitae, ultrices metus. Praesent eget turpis imperdiet, volutpat turpis vitae, pretium nunc. Phasellus finibus, lacus sed fringilla convallis, nibh ex scelerisque mauris, non consectetur nisl sem eget lacus. Sed auctor leo sit."
             },
             {
                 id: 4,
                 title: "Update CI",
-                done: true
+                done: true,
+                description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eget laoreet urna. Duis vel risus commodo, suscipit neque vitae, ultrices metus. Praesent eget turpis imperdiet, volutpat turpis vitae, pretium nunc. Phasellus finibus, lacus sed fringilla convallis, nibh ex scelerisque mauris, non consectetur nisl sem eget lacus. Sed auctor leo sit."
             }
         ]
         return {
