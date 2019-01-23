@@ -14,7 +14,8 @@ describe('TodoReducer', () => {
         let data = [{
             id:1,
             title: "Some task",
-            done: false
+            done: false,
+            description: "description"
         }]
         let loadingState = Object.assign({}, initialState);
         loadingState.loading = true;

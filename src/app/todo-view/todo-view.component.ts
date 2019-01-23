@@ -1,28 +1,40 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, DoCheck } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, zip } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { Todo } from '../todo/todo';
 import { TodoState } from '../todo/todo.reducer';
 import { LoadTodos } from '../todo/todo.actions';
-
+import {Router} from "@angular/router"
 @Component({
   selector: 'app-todo-view',
   templateUrl: './todo-view.component.html',
   styleUrls: ['./todo-view.component.css']
 })
-export class TodoViewComponent implements OnInit {
+export class TodoViewComponent implements OnInit, DoCheck {
   todos$: Observable<TodoState>;
   todo: Todo;
 
-  constructor(private route: ActivatedRoute, private store:Store<{ todos: TodoState }>) { 
+  constructor(private route: ActivatedRoute, private store:Store<{ todos: TodoState }>, private router: Router) { 
     this.todos$ = store.pipe(select('todos'));
   }
 
   ngOnInit() {
     this.store.dispatch(new LoadTodos());
-    this.todos$.subscribe((state: TodoState) => {
-      this.todo = state.data.find(todo => todo.id == this.route.snapshot.params['id']);
+  }
+
+  ngDoCheck(): void {
+    if(this.todo) {
+      return
+    }
+    zip(this.route.params, this.todos$, (routeParams, state) => ({todoId:routeParams.id, state})).subscribe(result => {
+      let state = result.state;
+      let todoId = result.todoId;
+      this.todo = state.data.find(todo => todo.id == todoId);
+      if(!this.todo && !state.loading) {
+        //If we finished loading & no todo was found
+        this.router.navigate([""]);
+      }
     });
   }
 

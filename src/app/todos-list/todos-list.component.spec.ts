@@ -7,36 +7,59 @@ import { TodoService } from '../todo/todo.service';
 import { Store, StoreModule } from '@ngrx/store';
 import { reducer, TodoState } from '../todo/todo.reducer';
 import { SortTodos } from '../pipes/sort-todos.pipe';
-import { LoadTodos, SetTodoDone } from '../todo/todo.actions';
+import { LoadTodos, SetTodoDone, CreateTodo } from '../todo/todo.actions';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { RouterModule } from '@angular/router';
 import { Todo } from '../todo/todo';
+import { MatDialogModule, MatDialog, MatInputModule } from '@angular/material';
+import { CreateTodoComponent } from '../create-todo/create-todo.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
+import { of } from 'rxjs';
 
 describe('TodosListComponent', () => {
   let component: TodosListComponent;
   let fixture: ComponentFixture<TodosListComponent>;
   let store: Store<{ todos: TodoState }>;
   let todoServiceStub: Partial<TodoService>;
+  let dialog: MatDialog;
 
   todoServiceStub = {
   };
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TodosListComponent, SortTodos ],
+      declarations: [ TodosListComponent, SortTodos, CreateTodoComponent ],
       imports: [
+        BrowserAnimationsModule,
         MatListModule, 
         MatCardModule,
         MatCheckboxModule,
         StoreModule.forRoot({ todos: reducer }),
-        RouterModule
+        RouterModule,
+        MatDialogModule,
+        ReactiveFormsModule,
+        MatInputModule
       ],
-      providers:    [ {provide: TodoService, useValue: todoServiceStub }, Store ]
+      providers: [ 
+        {
+          provide: TodoService, 
+          useValue: todoServiceStub 
+        }, 
+        Store,
+        MatDialog
+      ],
+    }).overrideModule(BrowserDynamicTestingModule, {
+      set: {
+        entryComponents: [ CreateTodoComponent ],
+      }
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
     store = TestBed.get(Store);
+    dialog = TestBed.get(MatDialog);
     spyOn(store, 'dispatch').and.callThrough();
     fixture = TestBed.createComponent(TodosListComponent);
     component = fixture.componentInstance;
@@ -64,5 +87,19 @@ describe('TodosListComponent', () => {
     component.toggleTodo(todo, true);
     expect(store.dispatch).toHaveBeenCalledWith(action);
     expect(todo.done).toBe(true);
+  });
+
+  it('openCreateModal should open the modal', () => {
+    let createdTodo = {
+      title: "title",
+      description: "description",
+      done: false
+    }
+    const action = new CreateTodo(createdTodo);
+    spyOn(dialog, 'open').and.returnValue({afterClosed: () => of(createdTodo)});
+    component.openCreateModal();
+    expect(dialog.open).toHaveBeenCalledWith(CreateTodoComponent, {width: '600px'});
+    expect(store.dispatch).toHaveBeenCalledWith(action);
+
   });
 });

@@ -13,8 +13,14 @@ export class TodoService {
         return this.httpClient.get<Todo[]>(this.url);
     }
 
-    setTodoDone(todo: Todo): Observable<Todo> {
-        return this.httpClient.put<Todo>(this.url + "/" + todo.id, {
+    setTodoDone(todo: Todo): Observable<any> {
+        return this.httpClient.put(this.url + "/" + todo.id, {
+            ...todo
+        });
+    }
+
+    createTodo(todo: {title: string, description: string, done: boolean}): Observable<any> {
+        return this.httpClient.post(this.url, {
             ...todo
         });
     }

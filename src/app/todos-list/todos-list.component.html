@@ -8,5 +8,8 @@
         <a routerLink="todo/{{todo.id}}">{{ todo.title }}</a>
     </mat-list-item>
   </mat-list>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" (click)="openCreateModal()">Create</button>
+  </mat-card-actions>
 </mat-card>
 

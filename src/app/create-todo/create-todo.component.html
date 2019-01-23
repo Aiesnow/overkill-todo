@@ -1,0 +1,19 @@
+<h2 mat-dialog-title>Create a Todo</h2>
+<mat-dialog-content>
+  <form [formGroup]="todoForm">
+    <mat-form-field>
+      <input matInput placeholder="Title" id="title" formControlName="title" value="" required>
+      <mat-error *ngIf="todoForm.controls.title">
+        Title is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <textarea matInput placeholder="Description" id="description" formControlName="description"></textarea>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button class="mat-raised-button"(click)="close()">Close</button>
+    <button mat-raised-button color="primary" (click)="createTodo()" [disabled]="!todoForm.valid">Save</button>
+</mat-dialog-actions>

@@ -20,13 +20,19 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import { TodoViewComponent } from './todo-view/todo-view.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatButtonModule} from '@angular/material/button';
+import { CreateTodoComponent } from './create-todo/create-todo.component';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatDialogModule} from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     TodosListComponent,
     SortTodos,
-    TodoViewComponent
+    TodoViewComponent,
+    CreateTodoComponent
   ],
   imports: [
     BrowserModule,
@@ -40,8 +46,13 @@ import {MatButtonModule} from '@angular/material/button';
     MatCardModule,
     MatCheckboxModule,
     MatProgressSpinnerModule,
-    MatButtonModule
+    MatButtonModule,
+    MatFormFieldModule,
+    MatDialogModule,
+    MatInputModule,
+    ReactiveFormsModule
   ],
+  entryComponents: [CreateTodoComponent],
   providers: [TodoService],
   bootstrap: [AppComponent]
 })
