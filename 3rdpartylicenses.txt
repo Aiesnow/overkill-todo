@@ -339,12 +339,16 @@ MIT
 
 @angular/material/card
 
+@angular/material/button
+
 @ngrx/store
 MIT
 
 @angular/material/progress-spinner
 
-@angular/material/button
+@angular/material/dialog
+
+@angular/material/form-field
 
 angular-in-memory-web-api
 MIT
