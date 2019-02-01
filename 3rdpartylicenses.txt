@@ -337,9 +337,9 @@ MIT
 
 @angular/material/checkbox
 
-@angular/material/card
-
 @angular/material/button
+
+@angular/material/card
 
 @ngrx/store
 MIT
