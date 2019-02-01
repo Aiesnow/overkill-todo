@@ -1,11 +1,11 @@
-import { Component, OnInit, DoCheck } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Component, DoCheck, OnInit } from '@angular/core';
+import { LoadTodos } from '../todo/todo.actions';
 import { Observable, zip } from 'rxjs';
+import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Todo } from '../todo/todo';
 import { TodoState } from '../todo/todo.reducer';
-import { LoadTodos } from '../todo/todo.actions';
-import {Router} from "@angular/router"
 @Component({
   selector: 'app-todo-view',
   templateUrl: './todo-view.component.html',
@@ -19,7 +19,7 @@ export class TodoViewComponent implements OnInit, DoCheck {
     this.todos$ = store.pipe(select('todos'));
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.store.dispatch(new LoadTodos());
   }
 

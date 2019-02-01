@@ -5,7 +5,9 @@
   <mat-list>
     <mat-list-item *ngFor="let todo of (todos$ | async).data | sortTodos" [ngClass]="{done: todo.done}">
         <mat-checkbox [checked]="todo.done" (change)="toggleTodo(todo, $event.checked)" [disabled]="(todos$ | async).loading">‌‌ </mat-checkbox> 
-        <a routerLink="todo/{{todo.id}}">{{ todo.title }}</a>
+        <a routerLink="todo/{{todo.id}}"><b>#{{todo.id}}</b> : {{ todo.title }}</a>
+        <button mat-button (click)="openEditModal(todo)">Edit</button>
+        <button mat-button (click)="deleteTodo(todo.id)" color="error">Delete</button>
     </mat-list-item>
   </mat-list>
   <mat-card-actions>

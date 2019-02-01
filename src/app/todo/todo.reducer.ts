@@ -1,11 +1,10 @@
 import { Todo } from './todo';
 import * as TodoActions from './todo.actions';
-import { FailLoad, SuccessLoad, SetTodoDone, CreateTodo } from './todo.actions';
 
 export interface TodoState {
     data: Todo[];
     loading: boolean;
-    error: any;
+    error: Error | string;
 }
 
 export const initialState: TodoState = {
@@ -17,11 +16,12 @@ export const initialState: TodoState = {
 
 export function reducer(
     state = initialState,
-    action: TodoActions.LoadTodos | TodoActions.FailLoad | TodoActions.SuccessLoad | TodoActions.SetTodoDone | TodoActions.CreateTodo
+    action: TodoActions.LoadTodos | TodoActions.FailLoad | TodoActions.SuccessLoad | TodoActions.UpdateTodo | TodoActions.CreateTodo | TodoActions.DeleteTodo
   ): TodoState {
     switch (action.type) {
       case TodoActions.ActionTypes.CreateTodo:
-      case TodoActions.ActionTypes.SetTodoDone:
+      case TodoActions.ActionTypes.UpdateTodo:
+      case TodoActions.ActionTypes.DeleteTodo:
       case TodoActions.ActionTypes.LoadTodos: {
         return {
           ...state,

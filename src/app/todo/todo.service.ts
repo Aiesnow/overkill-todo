@@ -13,15 +13,19 @@ export class TodoService {
         return this.httpClient.get<Todo[]>(this.url);
     }
 
-    setTodoDone(todo: Todo): Observable<any> {
+    updateTodo(todo: Todo): Observable<any> {
         return this.httpClient.put(this.url + "/" + todo.id, {
             ...todo
         });
     }
 
-    createTodo(todo: {title: string, description: string, done: boolean}): Observable<any> {
+    createTodo(todo: Todo): Observable<any> {
         return this.httpClient.post(this.url, {
             ...todo
         });
+    }
+
+    deleteTodo(todoId: number): Observable<any> {
+        return this.httpClient.delete(this.url + "/" + todoId);
     }
 }

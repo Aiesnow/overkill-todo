@@ -7,14 +7,14 @@ import { TodoService } from '../todo/todo.service';
 import { Store, StoreModule } from '@ngrx/store';
 import { reducer, TodoState } from '../todo/todo.reducer';
 import { SortTodos } from '../pipes/sort-todos.pipe';
-import { LoadTodos, SetTodoDone, CreateTodo } from '../todo/todo.actions';
+import { LoadTodos, UpdateTodo, CreateTodo } from '../todo/todo.actions';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { RouterModule } from '@angular/router';
 import { Todo } from '../todo/todo';
 import { MatDialogModule, MatDialog, MatInputModule } from '@angular/material';
 import { CreateTodoComponent } from '../create-todo/create-todo.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { of } from 'rxjs';
 
@@ -83,7 +83,7 @@ describe('TodosListComponent', () => {
       done: false,
       description: "description"
     }
-    const action = new SetTodoDone(todo);
+    const action = new UpdateTodo(todo);
     component.toggleTodo(todo, true);
     expect(store.dispatch).toHaveBeenCalledWith(action);
     expect(todo.done).toBe(true);

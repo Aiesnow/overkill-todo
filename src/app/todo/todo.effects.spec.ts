@@ -18,7 +18,7 @@ describe('TodoEffects', () => {
                 TodoEffects,
                 {
                     provide: TodoService,
-                    useValue: jasmine.createSpyObj('TodoService', ['getAllTodos', 'setTodoDone', 'createTodo'])
+                    useValue: jasmine.createSpyObj('TodoService', ['getAllTodos', 'updateTodo', 'createTodo', 'deleteTodo'])
                 },
                 provideMockActions(() => actions)
             ]
@@ -61,22 +61,22 @@ describe('TodoEffects', () => {
         });
     });
 
-    describe("SetTodoDone", () => {
+    describe("UpdateTodo", () => {
         it('should complete with a LoadTodos', () => {
             let todo = {
                 id: 1,
                 title: "todo",
                 done: false,
             };
-            const action = new TodoActions.SetTodoDone(todo);
+            const action = new TodoActions.UpdateTodo(todo);
             const completion = new TodoActions.LoadTodos();
-            let functionToMock: any = service.setTodoDone
+            let functionToMock: any = service.updateTodo
             functionToMock.and.returnValue(of(null));
     
             actions = hot('--a-', { a: action });
             const expected = cold('--b', { b: completion });
         
-            expect(effects.setTodoDone$).toBeObservable(expected);
+            expect(effects.updateTodo$).toBeObservable(expected);
         });
     
         it('should complete with a FailLoad', () => {
@@ -86,15 +86,15 @@ describe('TodoEffects', () => {
                 title: "todo",
                 done: false,
             };
-            const action = new TodoActions.SetTodoDone(todo);
+            const action = new TodoActions.UpdateTodo(todo);
             const completion = new TodoActions.FailLoad(error);
-            let functionToMock: any = service.setTodoDone
+            let functionToMock: any = service.updateTodo
             functionToMock.and.returnValue(throwError(error));
     
             actions = hot('--a-', { a: action });
             const expected = cold('--b', { b: completion });
         
-            expect(effects.setTodoDone$).toBeObservable(expected);
+            expect(effects.updateTodo$).toBeObservable(expected);
         });
     });
 
@@ -132,6 +132,35 @@ describe('TodoEffects', () => {
             const expected = cold('--b', { b: completion });
         
             expect(effects.createTodo$).toBeObservable(expected);
+        });
+    });
+
+    describe("DeleteTodo", () => {
+        it('should complete with a LoadTodos', () => {
+            let todoId = 1;
+            const action = new TodoActions.DeleteTodo(todoId);
+            const completion = new TodoActions.LoadTodos();
+            let functionToMock: any = service.deleteTodo
+            functionToMock.and.returnValue(of(null));
+    
+            actions = hot('--a-', { a: action });
+            const expected = cold('--b', { b: completion });
+        
+            expect(effects.deleteTodo$).toBeObservable(expected);
+        });
+    
+        it('should complete with a FailLoad', () => {
+            let error = new Error("Failed to create todo");
+            let todoId = 1;
+            const action = new TodoActions.DeleteTodo(todoId);
+            const completion = new TodoActions.FailLoad(error);
+            let functionToMock: any = service.deleteTodo
+            functionToMock.and.returnValue(throwError(error));
+    
+            actions = hot('--a-', { a: action });
+            const expected = cold('--b', { b: completion });
+        
+            expect(effects.deleteTodo$).toBeObservable(expected);
         });
     });
 
