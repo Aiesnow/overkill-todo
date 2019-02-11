@@ -6,6 +6,7 @@ import { TodoState } from '../todo/todo.reducer';
 import { Todo } from '../todo/todo';
 import { CreateTodoComponent } from '../create-todo/create-todo.component';
 import { MatDialog } from '@angular/material';
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-todos-list',
@@ -59,7 +60,16 @@ export class TodosListComponent implements OnInit {
   }
 
   deleteTodo(todoId: number) {
-    this.store.dispatch(new DeleteTodo(todoId));
+    let dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '600px',
+      data: "Do you really want to delete this todo ?"
+    });
+
+    dialogRef.afterClosed().subscribe(success => {
+      if(success) {
+        this.store.dispatch(new DeleteTodo(todoId));
+      }
+    });
   }
 
 }

@@ -25,6 +25,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatDialogModule} from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     TodosListComponent,
     SortTodos,
     TodoViewComponent,
-    CreateTodoComponent
+    CreateTodoComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +54,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatInputModule,
     ReactiveFormsModule
   ],
-  entryComponents: [CreateTodoComponent],
+  entryComponents: [CreateTodoComponent, ConfirmationDialogComponent],
   providers: [TodoService],
   bootstrap: [AppComponent]
 })
