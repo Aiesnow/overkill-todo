@@ -1,4 +1,4 @@
-import { TodoService } from "./todo.service";
+import { TodoService } from './todo.service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { Todo } from './todo';
@@ -6,7 +6,7 @@ import { Todo } from './todo';
 describe('TodoService', () => {
     let service: TodoService;
     let httpMock: HttpTestingController;
-    beforeEach(() => { 
+    beforeEach(() => {
       TestBed.configureTestingModule({
         imports: [
           HttpClientTestingModule
@@ -19,150 +19,150 @@ describe('TodoService', () => {
       httpMock = TestBed.get(HttpTestingController);
     });
 
-    describe("getAllTodos", () => {
+    describe('getAllTodos', () => {
 
       it('should resolve with content', (done: DoneFn) => {
-        let todos: Todo[] = [
+        const todos: Todo[] = [
           {
-            id:1, 
-            title: "Test task", 
-            done:false, 
-            description: "description"
+            id: 1,
+            title: 'Test task',
+            done: false,
+            description: 'description'
           }
         ];
         service.getAllTodos().subscribe(res => {
-            expect(res).toBe(todos)
+            expect(res).toBe(todos);
             done();
         });
-  
-        let request = httpMock.expectOne('/api/todos');
+
+        const request = httpMock.expectOne('/api/todos');
         request.flush(todos);
-  
+
       });
-     
+
       it('should reject with an error', (done: DoneFn) => {
-  
+
         service.getAllTodos().subscribe(res => {
         }, err => {
-          expect(err.message).toContain("Internal server error")
-          expect(err.status).toBe(500)
+          expect(err.message).toContain('Internal server error');
+          expect(err.status).toBe(500);
           done();
         });
-  
-  
-        let request = httpMock.expectOne('/api/todos');
+
+
+        const request = httpMock.expectOne('/api/todos');
         request.error(new ErrorEvent('ERROR_LOADING_TODOS'), {
           status: 500,
-          statusText: "Internal server error"
+          statusText: 'Internal server error'
         });
       });
-      
+
     });
 
-    describe("updateTodo", () => {
+    describe('updateTodo', () => {
       it('should resolve', (done: DoneFn) => {
-        let todo: Todo = {
-          id:2,
-          title: "todo",
+        const todo: Todo = {
+          id: 2,
+          title: 'todo',
           done: false,
-          description: "description"
+          description: 'description'
         };
         service.updateTodo(todo).subscribe(res => {
             done();
         });
-  
-        let request = httpMock.expectOne('/api/todos/2');
+
+        const request = httpMock.expectOne('/api/todos/2');
         request.flush(null);
-  
+
       });
-     
+
       it('should reject with an error', (done: DoneFn) => {
-        let todo: Todo = {
-          id:1,
-          title: "todo",
+        const todo: Todo = {
+          id: 1,
+          title: 'todo',
           done: false,
-          description: "description"
+          description: 'description'
         };
         service.updateTodo(todo).subscribe(res => {
         }, err => {
-          expect(err.message).toContain("Internal server error")
-          expect(err.status).toBe(500)
+          expect(err.message).toContain('Internal server error');
+          expect(err.status).toBe(500);
           done();
         });
-  
-  
-        let request = httpMock.expectOne('/api/todos/1');
+
+
+        const request = httpMock.expectOne('/api/todos/1');
         request.error(new ErrorEvent('ERROR_LOADING_TODOS'), {
           status: 500,
-          statusText: "Internal server error"
+          statusText: 'Internal server error'
         });
       });
     });
-   
-    describe("createTodo", () => {
+
+    describe('createTodo', () => {
       it('should resolve', (done: DoneFn) => {
-        let todo = {
-          title: "todo",
+        const todo = {
+          title: 'todo',
           done: false,
-          description: "description"
+          description: 'description'
         };
         service.createTodo(todo).subscribe(res => {
           done();
         });
-  
-  
-        let request = httpMock.expectOne('/api/todos');
+
+
+        const request = httpMock.expectOne('/api/todos');
         request.flush(null);
       });
-     
+
       it('should reject with an error', (done: DoneFn) => {
-        let todo = {
-          title: "todo",
+        const todo = {
+          title: 'todo',
           done: false,
-          description: "description"
+          description: 'description'
         };
         service.createTodo(todo).subscribe(res => {
         }, err => {
-          expect(err.message).toContain("Internal server error")
-          expect(err.status).toBe(500)
+          expect(err.message).toContain('Internal server error');
+          expect(err.status).toBe(500);
           done();
         });
-  
-  
-        let request = httpMock.expectOne('/api/todos');
+
+
+        const request = httpMock.expectOne('/api/todos');
         request.error(new ErrorEvent('ERROR_CREATING_TODO'), {
           status: 500,
-          statusText: "Internal server error"
+          statusText: 'Internal server error'
         });
       });
     });
-   
-    describe("deleteTodo", () => {
+
+    describe('deleteTodo', () => {
       it('should resolve', (done: DoneFn) => {
         service.deleteTodo(658).subscribe(res => {
           done();
         });
-  
-  
-        let request = httpMock.expectOne('/api/todos/658');
+
+
+        const request = httpMock.expectOne('/api/todos/658');
         request.flush(null);
       });
-     
+
       it('should reject with an error', (done: DoneFn) => {
         service.deleteTodo(658).subscribe(res => {
         }, err => {
-          expect(err.message).toContain("Internal server error")
-          expect(err.status).toBe(500)
+          expect(err.message).toContain('Internal server error');
+          expect(err.status).toBe(500);
           done();
         });
-  
-  
-        let request = httpMock.expectOne('/api/todos/658');
+
+
+        const request = httpMock.expectOne('/api/todos/658');
         request.error(new ErrorEvent('ERROR_CREATING_TODO'), {
           status: 500,
-          statusText: "Internal server error"
+          statusText: 'Internal server error'
         });
       });
     });
-    
+
   });

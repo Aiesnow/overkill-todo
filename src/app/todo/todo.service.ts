@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class TodoService {
-    url = "/api/todos";
+    url = '/api/todos';
     constructor(private httpClient: HttpClient) {
     }
 
@@ -14,7 +14,7 @@ export class TodoService {
     }
 
     updateTodo(todo: Todo): Observable<any> {
-        return this.httpClient.put(this.url + "/" + todo.id, {
+        return this.httpClient.put(this.url + '/' + todo.id, {
             ...todo
         });
     }
@@ -26,6 +26,6 @@ export class TodoService {
     }
 
     deleteTodo(todoId: number): Observable<any> {
-        return this.httpClient.delete(this.url + "/" + todoId);
+        return this.httpClient.delete(this.url + '/' + todoId);
     }
 }

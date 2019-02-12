@@ -16,7 +16,8 @@ export const initialState: TodoState = {
 
 export function reducer(
     state = initialState,
-    action: TodoActions.LoadTodos | TodoActions.FailLoad | TodoActions.SuccessLoad | TodoActions.UpdateTodo | TodoActions.CreateTodo | TodoActions.DeleteTodo
+    action: TodoActions.LoadTodos | TodoActions.FailLoad | TodoActions.SuccessLoad |
+      TodoActions.UpdateTodo | TodoActions.CreateTodo | TodoActions.DeleteTodo
   ): TodoState {
     switch (action.type) {
       case TodoActions.ActionTypes.CreateTodo:
@@ -43,6 +44,6 @@ export function reducer(
         };
       }
     }
-   
+
     return state;
   }

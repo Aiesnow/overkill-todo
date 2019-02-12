@@ -15,7 +15,7 @@ export class TodoViewComponent implements OnInit, DoCheck {
   todos$: Observable<TodoState>;
   todo: Todo;
 
-  constructor(private route: ActivatedRoute, private store:Store<{ todos: TodoState }>, private router: Router) { 
+  constructor(private route: ActivatedRoute, private store: Store<{ todos: TodoState }>, private router: Router) {
     this.todos$ = store.pipe(select('todos'));
   }
 
@@ -24,16 +24,16 @@ export class TodoViewComponent implements OnInit, DoCheck {
   }
 
   ngDoCheck(): void {
-    if(this.todo) {
-      return
+    if (this.todo) {
+      return;
     }
-    zip(this.route.params, this.todos$, (routeParams, state) => ({todoId:routeParams.id, state})).subscribe(result => {
-      let state = result.state;
-      let todoId = result.todoId;
-      this.todo = state.data.find(todo => todo.id == todoId);
-      if(!this.todo && !state.loading) {
-        //If we finished loading & no todo was found
-        this.router.navigate([""]);
+    zip(this.route.params, this.todos$, (routeParams, state) => ({todoId: routeParams.id, state})).subscribe(result => {
+      const state = result.state;
+      const todoId = result.todoId;
+      this.todo = state.data.find(todo => todo.id === todoId);
+      if (!this.todo && !state.loading) {
+        // If we finished loading & no todo was found
+        this.router.navigate(['']);
       }
     });
   }

@@ -32,7 +32,7 @@ describe('TodosListComponent', () => {
       declarations: [ TodosListComponent, SortTodos, CreateTodoComponent ],
       imports: [
         BrowserAnimationsModule,
-        MatListModule, 
+        MatListModule,
         MatCardModule,
         MatCheckboxModule,
         StoreModule.forRoot({ todos: reducer }),
@@ -41,11 +41,11 @@ describe('TodosListComponent', () => {
         ReactiveFormsModule,
         MatInputModule
       ],
-      providers: [ 
+      providers: [
         {
-          provide: TodoService, 
-          useValue: todoServiceStub 
-        }, 
+          provide: TodoService,
+          useValue: todoServiceStub
+        },
         Store,
         MatDialog
       ],
@@ -77,12 +77,12 @@ describe('TodosListComponent', () => {
   });
 
   it('toggleTodo should dispatch SetTodoDone', () => {
-    let todo: Todo = {
-      id:1,
-      title: "todo",
+    const todo: Todo = {
+      id: 1,
+      title: 'todo',
       done: false,
-      description: "description"
-    }
+      description: 'description'
+    };
     const action = new UpdateTodo(todo);
     component.toggleTodo(todo, true);
     expect(store.dispatch).toHaveBeenCalledWith(action);
@@ -90,11 +90,11 @@ describe('TodosListComponent', () => {
   });
 
   it('openCreateModal should open the modal', () => {
-    let createdTodo = {
-      title: "title",
-      description: "description",
+    const createdTodo = {
+      title: 'title',
+      description: 'description',
       done: false
-    }
+    };
     const action = new CreateTodo(createdTodo);
     spyOn(dialog, 'open').and.returnValue({afterClosed: () => of(createdTodo)});
     component.openCreateModal();

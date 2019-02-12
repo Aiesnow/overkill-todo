@@ -15,7 +15,7 @@ import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation
 })
 export class TodosListComponent implements OnInit {
   todos$: Observable<Todo[]>;
-  
+
   constructor(private store: Store<{ todos: TodoState }>, public dialog: MatDialog) {
     this.todos$ = store.pipe(select('todos'));
   }
@@ -30,7 +30,7 @@ export class TodosListComponent implements OnInit {
   }
 
   openCreateModal() {
-    let dialogRef = this.dialog.open(CreateTodoComponent, {
+    const dialogRef = this.dialog.open(CreateTodoComponent, {
       width: '600px'
     });
 
@@ -38,7 +38,7 @@ export class TodosListComponent implements OnInit {
   }
 
   openEditModal(todo: Todo) {
-    let dialogRef = this.dialog.open(CreateTodoComponent, {
+    const dialogRef = this.dialog.open(CreateTodoComponent, {
       width: '600px',
       data: todo
     });
@@ -47,26 +47,25 @@ export class TodosListComponent implements OnInit {
   }
 
   afterModalClosed(data: Todo) {
-    if(!data) {
+    if (!data) {
       return;
     }
-    if("id" in data) {
+    if ('id' in data) {
       this.store.dispatch(new UpdateTodo(data));
-    }
-    else {
+    } else {
       data.done = false;
       this.store.dispatch(new CreateTodo(data));
     }
   }
 
   deleteTodo(todoId: number) {
-    let dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: '600px',
-      data: "Do you really want to delete this todo ?"
+      data: 'Do you really want to delete this todo ?'
     });
 
     dialogRef.afterClosed().subscribe(success => {
-      if(success) {
+      if (success) {
         this.store.dispatch(new DeleteTodo(todoId));
       }
     });

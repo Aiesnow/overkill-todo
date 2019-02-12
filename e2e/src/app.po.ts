@@ -1,5 +1,4 @@
 import { browser, by, element } from 'protractor';
-import { stringify } from 'querystring';
 
 export class AppPage {
 
@@ -29,30 +28,30 @@ export class AppPage {
 
   hasLoaded() {
     return browser.getCurrentUrl().then((url: string): PromiseLike<boolean> => {
-      if(url.indexOf("/todo/") > -1) {
+      if (url.indexOf('/todo/') > -1) {
         // Vue pour un todo
-        return element(by.id("loading-card")).isPresent().then(result => !result);
+        return element(by.id('loading-card')).isPresent().then(result => !result);
       } else {
-        //Liste de todos
-        return this.getTodos().first().getAttribute("disabled").then(result => !result);
+        // Liste de todos
+        return this.getTodos().first().getAttribute('disabled').then(result => !result);
       }
     });
   }
 
-  getCheckboxForTodo(todoElement) {
-    return todoElement.element(by.tagName("mat-checkbox"));
+  getCheckboxForTodo(todoElement: any) {
+    return todoElement.element(by.tagName('mat-checkbox'));
   }
 
-  getEditButtonForTodo(todoElement) {
-    return todoElement.element(by.buttonText("Edit"));
+  getEditButtonForTodo(todoElement: any) {
+    return todoElement.element(by.buttonText('Edit'));
   }
 
-  getDeleteButtonForTodo(todoElement) {
-    return todoElement.element(by.buttonText("Delete"));
+  getDeleteButtonForTodo(todoElement: any) {
+    return todoElement.element(by.buttonText('Delete'));
   }
 
-  getLinkForTodo(todoElement) {
-    return todoElement.element(by.tagName("a"));
+  getLinkForTodo(todoElement: any) {
+    return todoElement.element(by.tagName('a'));
   }
 
   getTodoTitle() {
@@ -64,6 +63,6 @@ export class AppPage {
   }
 
   getTodoBackButton() {
-    return element(by.buttonText("Back"));
+    return element(by.buttonText('Back'));
   }
 }

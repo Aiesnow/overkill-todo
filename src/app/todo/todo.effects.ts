@@ -5,10 +5,10 @@ import { map, mergeMap, catchError } from 'rxjs/operators';
 import { TodoService } from './todo.service';
 import { ActionTypes, FailLoad, SuccessLoad, UpdateTodo, LoadTodos, CreateTodo, DeleteTodo } from './todo.actions';
 import { Todo } from './todo';
- 
+
 @Injectable()
 export class TodoEffects {
- 
+
   @Effect()
   loadTodos$ = this.actions$
     .pipe(
@@ -20,12 +20,12 @@ export class TodoEffects {
         )
       )
     );
- 
+
   @Effect()
   updateTodo$ = this.actions$
     .pipe(
       ofType(ActionTypes.UpdateTodo),
-      mergeMap((action:UpdateTodo) => this.todoService.updateTodo(action.payload)
+      mergeMap((action: UpdateTodo) => this.todoService.updateTodo(action.payload)
         .pipe(
           map(() => {
             // Once the update is done, reload Todos
@@ -35,12 +35,12 @@ export class TodoEffects {
         )
       )
     );
- 
+
   @Effect()
   createTodo$ = this.actions$
     .pipe(
       ofType(ActionTypes.CreateTodo),
-      mergeMap((action:CreateTodo) => this.todoService.createTodo(action.payload)
+      mergeMap((action: CreateTodo) => this.todoService.createTodo(action.payload)
         .pipe(
           map(() => {
             // Once the creation is done, reload Todos
@@ -55,7 +55,7 @@ export class TodoEffects {
   deleteTodo$ = this.actions$
     .pipe(
       ofType(ActionTypes.DeleteTodo),
-      mergeMap((action:DeleteTodo) => this.todoService.deleteTodo(action.payload)
+      mergeMap((action: DeleteTodo) => this.todoService.deleteTodo(action.payload)
         .pipe(
           map(() => {
             // Once the creation is done, reload Todos
@@ -65,7 +65,7 @@ export class TodoEffects {
         )
       )
     );
- 
+
   constructor(
     private actions$: Actions,
     private todoService: TodoService

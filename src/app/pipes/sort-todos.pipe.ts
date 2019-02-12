@@ -6,14 +6,12 @@ export class SortTodos implements PipeTransform {
   transform(value: Todo[]): Todo[] {
     // Returns a new sorted array of todos
     return value.slice().sort((a, b) => {
-      if(a.done && !b.done) {
+      if (a.done && !b.done) {
         return 1;
-      }
-      else if (b.done && !a.done) {
+      } else if (b.done && !a.done) {
         return -1;
-      }
-      else {
-        return b.id-a.id;
+      } else {
+        return b.id - a.id;
       }
     });
   }

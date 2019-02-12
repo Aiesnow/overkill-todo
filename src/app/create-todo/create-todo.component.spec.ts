@@ -10,16 +10,16 @@ describe('CreateTodoComponent', () => {
   let component: CreateTodoComponent;
   let fixture: ComponentFixture<CreateTodoComponent>;
   let dialogRef: MatDialogRef<CreateTodoComponent>;
-  let formBuilder: FormBuilder = new FormBuilder();
+  const formBuilder: FormBuilder = new FormBuilder();
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ CreateTodoComponent ],
       imports: [BrowserAnimationsModule, MatFormFieldModule, MatInputModule, MatDialogModule, ReactiveFormsModule],
       providers: [
-        { 
-          provide: MatDialogRef, 
-          useValue: {close: () => true}, 
+        {
+          provide: MatDialogRef,
+          useValue: {close: () => true},
         },
         {
           provide: FormBuilder,
@@ -37,8 +37,8 @@ describe('CreateTodoComponent', () => {
     fixture = TestBed.createComponent(CreateTodoComponent);
     component = fixture.componentInstance;
     component.todoForm = formBuilder.group({
-      title: "title", 
-      description: "description"
+      title: 'title',
+      description: 'description'
     });
     fixture.detectChanges();
   });
@@ -56,7 +56,7 @@ describe('CreateTodoComponent', () => {
     spyOnProperty(component.todoForm, 'dirty', 'get').and.returnValue(true);
     spyOnProperty(component.todoForm, 'valid', 'get').and.returnValue(true);
     component.saveTodo();
-    expect(dialogRef.close).toHaveBeenCalledWith({title: "title", description: "description"});
+    expect(dialogRef.close).toHaveBeenCalledWith({title: 'title', description: 'description'});
   });
 
   it('should not call close (form invalid)', () => {

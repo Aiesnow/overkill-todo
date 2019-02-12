@@ -6,7 +6,7 @@ import { TodoViewComponent } from './todo-view/todo-view.component';
 const routes: Routes = [
   { path: '', component: TodosListComponent },
   { path: 'todo/:id', component: TodoViewComponent },
-  { path: '**', redirectTo: "/" }
+  { path: '**', redirectTo: '/' }
 ];
 
 @NgModule({
